@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="sWxVOxFb1Bz0dk1wHesjJvt12wcUPQ036TOO1C-N00Y" />
+
+    <!-- Favicon - Preload critical icons -->
+    <link rel="preload" href="icon/favicon-32x32.png" as="image" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
+    <link rel="manifest" href="icon/site.webmanifest">
+
+    <meta name="description" content="Manish Varrier | UX Designer & Researcher combining technical expertise with human-centered design. Portfolio showcasing user research, digital product design, and engineering-informed UX solutions.">
+
+    <title>Manish - UX Designer & Researcher</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" type="font/woff2" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Typography */
+        .lucida-typewriter {
+            font-family: 'Lucida Sans Typewriter', 'Courier New', monospace;
+            font-weight: normal;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: flex-end;
+            padding: 30px 30px 10px 0;
+            background-color: transparent;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        nav a {
+            margin-left: 50px;
+            text-decoration: none;
+            color: #888;
+            font-size: 16px;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: normal;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #fff;
+        }
+
+        nav a.active {
+            color: #fff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -3px;
+            left: 0;
+            background-color: #fff;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.4s ease;
+        }
+
+        nav a:hover::after,
+        nav a:focus::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Content wrapper */
+        .content-wrapper {
+            padding: 0 5px 0 100px;
+            position: relative;
+        }
+
+        /* Header section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            gap: 70px;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        /* Left side content */
+        .header-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .header-content h1 {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+            font-weight: 600;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .rotating-container {
+            height: 68px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .rotating-text {
+            font-size: 56px;
+            font-weight: normal;
+            line-height: 68px;
+            font-family: 'Lucida Sans Typewriter', 'Courier New', monospace;
+            color: #fff;
+            animation: slideUp 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+        }
+
+        .rotating-text div {
+            height: 68px;
+            line-height: 68px;
+        }
+
+        @keyframes slideUp {
+            0%, 20% { transform: translateY(0); }
+            25%, 45% { transform: translateY(-68px); }
+            50%, 70% { transform: translateY(-136px); }
+            75%, 95% { transform: translateY(-204px); }
+            100% { transform: translateY(-272px); }
+        }
+
+        .subtitle {
+            margin-top: 20px;
+            max-width: 600px;
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.6s;
+            color: #888;
+        }
+
+        /* Social links - Apple style */
+        .social-links {
+            display: flex;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.6s;
+            gap: 16px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .social-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Card styles */
+        .card-container {
+            flex: 0 0 450px;
+            perspective: 1000px;
+        }
+
+        .lanyard {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border-radius: 20px 20px 50% 50%;
+            border: 2px solid #444;
+        }
+
+        .lanyard::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 60px;
+            background: #444;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .card-header {
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .name {
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .job-title {
+            font-size: 24px;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .company {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        .event-type {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .ticket-number {
+            font-size: 18px;
+            color: #888;
+            font-family: monospace;
+        }
+
+        /* Work section */
+        .work-section {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .work-section h2 {
+            font-size: 42px;
+            margin-bottom: 50px;
+            font-weight: 600;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Case studies - Apple Style */
+        .case-studies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .case-study {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .case-study:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-study-img {
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+        }
+
+        .case-study-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .case-study:hover .case-study-img img {
+            transform: scale(1.05);
+        }
+
+        .case-study-content {
+            padding: 30px;
+        }
+
+        .case-study-content h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .case-study-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #999;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .case-study-content a {
+            color: #0A84FF;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s ease;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .case-study-content a:hover {
+            gap: 12px;
+        }
+
+        .case-study-content a::after {
+            content: '→';
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .case-study-content a:hover::after {
+            transform: translateX(2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 14px;
+            color: #666;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 60px;
+                min-height: 100vh;
+            }
+
+            .header-content {
+                align-items: center;
+                text-align: center;
+            }
+
+            .subtitle {
+                margin: 20px auto 0;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .card-container {
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .case-study {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .case-study-img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16/9;
+            }
+            
+            .content-wrapper {
+                padding: 0 20px 0 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding-top: 60px;
+            }
+
+            .content-wrapper {
+                padding: 0 20px;
+            }
+            
+            .header-content h1,
+            .rotating-text {
+                font-size: 42px;
+            }
+            
+            .work-section h2 {
+                font-size: 32px;
+                margin-bottom: 50px;
+            }
+            
+            nav {
+                padding: 20px 20px 10px 20px;
+                justify-content: center;
+            }
+            
+            nav a {
+                margin-left: 30px;
+            }
+
+            nav a:first-child {
+                margin-left: 0;
+            }
+
+            .card {
+                padding: 30px;
+            }
+
+            .name {
+                font-size: 32px;
+            }
+
+            .job-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content h1,
+            .rotating-text {
+                font-size: 32px;
+            }
+            
+            .case-studies {
+                gap: 60px;
+            }
+        }
+
+        /* Accessibility */
+        a:focus {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        .social-links a:focus {
+            outline: 2px solid #fff;
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="resume.html">Resume</a>
+    </nav>
+    
+    <div class="content-wrapper">
+        <!-- Header section -->
+        <header id="home" role="banner">
+            <div class="background-decoration">
+                <div class="grid-lines"></div>
+                <div class="corner-decoration top-left"></div>
+                <div class="corner-decoration bottom-right"></div>
+            </div>
+            
+            <div class="header-content">
+                <h1 style="animation-delay: 0s;">Hi</h1>
+                <div class="rotating-container">
+                    <div class="rotating-text">
+                        <div>I design</div>
+                        <div>I develop</div>
+                        <div>I research</div>
+                        <div>I create</div>
+                        <div>I design</div>
+                    </div>
+                </div>
+                <p class="subtitle">I am a UX Designer with the unique ability to translate business requirements into elegant solutions that developers love to build.</p>
+                
+                <!-- Social links -->
+                <div class="social-links" role="list" aria-label="Social media links">
+                    <a href="https://linkedin.com/in/manish-varrier" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">in</a>
+                    <a href="mailto:manishvarrier@gmail.com" title="Email" aria-label="Email">✉</a>
+                    <a href="https://instagram.com/_manishr_" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">ig</a>
+                </div>
+
+                <!-- CTA Button -->
+                <button onclick="smoothScroll('#work')" class="cta-button">View My Work</button>
+            </div>
+
+            <!-- Card -->
+            <div class="card-container">
+                <div class="lanyard"></div>
+                <div class="card">
+                    <div class="card-header">UX/UI PROFESSIONAL</div>
+                    <h2 class="name">Manish<br>Varrier</h2>
+                    <p class="job-title">UX Designer & Researcher</p>
+                    <p class="company">PORTFOLIO</p>
+                    <div class="card-footer">
+                        <span class="event-type">IN-PERSON</span>
+                        <span class="ticket-number">#001337</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Work section -->
+        <section class="work-section" id="work" aria-labelledby="work-heading">
+            <h2 id="work-heading">I've worked on</h2>
+            
+            <div class="case-studies">
+                <!-- Case study 1 - Zenodo -->
+                <article class="case-study">
+                    <a href="zenodo.html" class="case-study-img" aria-label="View Zenodo case study">
+                        <img src="images/index/zenodo.webp" alt="Zenodo project interface design showing archival integration" width="500" height="300" loading="lazy">
+                    </a>
+                    <div class="case-study-content">
+                        <h3>Zenodo</h3>
+                        <p>Designed and implemented a Zenodo archival integration for the Correlate system, enabling seamless research data publishing to meet European consortium requirements.</p>
+                        <a href="zenodo.html">View Case Study</a>
+                    </div>
+                </article>
+
+                <!-- Case study 2 - Empathly -->
+                <article class="case-study">
+                    <a href="empathly.html" class="case-study-img" aria-label="View Empath.ly case study">
+                        <img src="images/index/empathly.webp" alt="Empath.ly video conferencing app with emotional analytics" width="500" height="300" loading="lazy">
+                    </a>
+                    <div class="case-study-content">
+                        <h3>Empath.ly</h3>
+                        <p>Designed a video conferencing app with integrated emotional analytics, helping HR and marketing teams track emotional dynamics during meetings.</p>
+                        <a href="empathly.html">View Case Study</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer role="contentinfo">
+            <p>&copy; 2025 Manish. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll function
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Interactive card hover effect
+        const card = document.querySelector('.card');
+        const cardContainer = document.querySelector('.card-container');
+        
+        if (window.matchMedia('(hover: hover)').matches) {
+            cardContainer.addEventListener('mousemove', (e) => {
+                const rect = cardContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            cardContainer.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+        }
+    </script>
+</body>
+</html>
