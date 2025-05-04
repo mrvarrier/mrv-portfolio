@@ -63,9 +63,12 @@
             top: 0;
             left: 0;
             right: 0;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
             display: flex;
             justify-content: flex-end;
-            padding: 30px 30px 10px 0;
+            padding: 30px 30px 10px 30px;
             background-color: transparent;
             transition: opacity 0.3s ease;
             z-index: 1000;
@@ -112,7 +115,7 @@
 
         /* Content wrapper */
         .content-wrapper {
-            padding: 0 5px 0 100px;
+            padding: 0 100px;
             position: relative;
         }
 
@@ -212,6 +215,46 @@
         .social-links a:hover {
             background-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+        }
+
+        .social-links a svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* CTA Button - Apple Style Guidelines */
+        .cta-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            border-radius: 980px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            letter-spacing: -0.01em;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        .cta-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
         }
 
         /* Card styles */
@@ -470,7 +513,7 @@
             }
             
             .content-wrapper {
-                padding: 0 20px 0 40px;
+                padding: 0 40px;
             }
         }
 
@@ -584,8 +627,19 @@
                 <!-- Social links -->
                 <div class="social-links" role="list" aria-label="Social media links">
                     <a href="https://linkedin.com/in/manish-varrier" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">in</a>
-                    <a href="mailto:manishvarrier@gmail.com" title="Email" aria-label="Email">✉</a>
-                    <a href="https://instagram.com/_manishr_" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">ig</a>
+                    <a href="mailto:manishvarrier@gmail.com" title="Email" aria-label="Email">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M22 7l-10 6L2 7"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/_manishr_" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </a>
                 </div>
 
                 <!-- CTA Button -->
