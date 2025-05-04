@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Empath.ly UX Case Study - A video conferencing platform with real-time emotional analytics designed during HackHarvard 2022">
+    <title>Empath.ly - UX Case Study | Manish Varrier</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
+    <link rel="manifest" href="icon/site.webmanifest">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography scale - Apple style with consistent hierarchy */
+        .display-title {
+            font-size: 80px;
+            line-height: 1.05;
+            letter-spacing: -0.015em;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .headline {
+            font-size: 48px;
+            line-height: 1.08;
+            letter-spacing: -0.003em;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .title-1 {
+            font-size: 34px;
+            line-height: 1.12;
+            letter-spacing: 0.004em;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .title-2 {
+            font-size: 28px;
+            line-height: 1.14;
+            letter-spacing: 0.007em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .title-3 {
+            font-size: 22px;
+            line-height: 1.19;
+            letter-spacing: 0.011em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .body-text {
+            font-size: 19px;
+            line-height: 1.47;
+            letter-spacing: -0.014em;
+            font-weight: 400;
+            color: #ccc;
+            margin-bottom: 24px;
+        }
+
+        .caption {
+            font-size: 15px;
+            line-height: 1.33;
+            letter-spacing: -0.008em;
+            font-weight: 400;
+            color: #888;
+        }
+
+        /* Layout container */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        .narrow-container {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        /* Navigation - matches landing page */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            padding: 24px 80px;
+            background-color: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+
+        nav.scrolled {
+            padding: 16px 80px;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        nav a {
+            margin-left: 40px;
+            text-decoration: none;
+            color: #888;
+            font-size: 17px;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #fff;
+        }
+
+        nav a.active {
+            color: #fff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #fff;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav a:hover::after,
+        nav a:focus::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #0A84FF;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 400;
+            padding-top: 140px;
+            margin-bottom: 80px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .back-link:hover svg {
+            transform: translateX(-4px);
+        }
+
+        .back-link svg {
+            margin-right: 8px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Header section */
+        .case-study-header {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUpSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.2s;
+        }
+
+        /* Meta info with refined spacing */
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUpSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.4s;
+        }
+
+        .meta-item {
+            text-align: left;
+        }
+
+        .meta-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 17px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        /* Sections with consistent spacing */
+        .section {
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section.in-view {
+            animation: fadeUpSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .section-label {
+            font-size: 13px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 32px;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+        }
+
+        /* Large images */
+        .hero-image {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            margin-top: 60px;
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-image.in-view {
+            animation: fadeUpSpring 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Standard images */
+        .image-container {
+            margin: 60px 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .image-container.in-view {
+            animation: fadeUpSpring 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Highlight boxes - consistent width */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 64px;
+            margin: 80px 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .highlight-box.in-view {
+            animation: fadeUpSpring 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Two column layout - Apple style */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .two-column.in-view {
+            animation: fadeUpSpring 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .two-column.reverse {
+            direction: rtl;
+        }
+
+        .two-column.reverse > * {
+            direction: ltr;
+        }
+
+        /* Research insights grid */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin: 80px 0;
+        }
+
+        .insight-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px 32px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .insight-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .insight-card.in-view {
+            animation: fadeUpSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .insight-card:nth-child(2).in-view {
+            animation-delay: 0.1s;
+        }
+
+        .insight-card:nth-child(3).in-view {
+            animation-delay: 0.2s;
+        }
+
+        .insight-number {
+            font-size: 13px;
+            color: #0A84FF;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.08em;
+        }
+
+        /* Video container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 24px;
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container.in-view {
+            animation: fadeUpSpring 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer with consistent spacing */
+        footer {
+            text-align: center;
+            padding: 100px 0 60px 0;
+            font-size: 15px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 120px;
+        }
+
+        /* Animations */
+        @keyframes fadeUpSpring {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+
+        /* Accessibility improvements */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #0A84FF;
+            color: #fff;
+            padding: 8px 16px;
+            z-index: 100;
+            text-decoration: none;
+            border-radius: 0 0 8px 0;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        /* High contrast focus states */
+        *:focus {
+            outline: none;
+        }
+
+        *:focus-visible {
+            outline: 3px solid #0A84FF;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1280px) {
+            .container {
+                padding: 0 60px;
+            }
+
+            nav {
+                padding: 24px 60px;
+            }
+
+            nav.scrolled {
+                padding: 16px 60px;
+            }
+
+            .two-column {
+                gap: 60px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .display-title {
+                font-size: 64px;
+            }
+
+            .headline {
+                font-size: 40px;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 32px;
+            }
+
+            nav {
+                padding: 24px 32px;
+            }
+
+            nav.scrolled {
+                padding: 16px 32px;
+            }
+
+            .back-link {
+                padding-top: 120px;
+                margin-bottom: 48px;
+            }
+
+            .display-title {
+                font-size: 48px;
+            }
+
+            .headline {
+                font-size: 32px;
+            }
+
+            .title-1 {
+                font-size: 28px;
+            }
+
+            .title-2 {
+                font-size: 24px;
+            }
+
+            .meta-info {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .two-column.reverse {
+                direction: ltr;
+            }
+
+            .section {
+                margin-bottom: 120px;
+            }
+
+            .highlight-box {
+                padding: 48px 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            nav {
+                padding: 20px 24px;
+                justify-content: center;
+            }
+
+            nav.scrolled {
+                padding: 16px 24px;
+            }
+
+            nav a {
+                margin-left: 24px;
+                font-size: 16px;
+            }
+
+            nav a:first-child {
+                margin-left: 0;
+            }
+
+            .display-title {
+                font-size: 40px;
+            }
+
+            .headline {
+                font-size: 28px;
+            }
+
+            .body-text {
+                font-size: 17px;
+            }
+
+            .meta-info {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                margin-top: 40px;
+                margin-bottom: 80px;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .highlight-box {
+                border: 2px solid #fff;
+            }
+
+            .insight-card {
+                border: 2px solid #fff;
+            }
+
+            .image-container {
+                border: 2px solid #fff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Loading screen -->
+    <div class="loading-screen" role="alert" aria-live="assertive">
+        <div class="loading-text">LOADING</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="resume.html">Resume</a>
+    </nav>
+
+    <main id="main-content" class="container">
+        <!-- Back link -->
+        <a href="index.html" class="back-link" aria-label="Back to portfolio">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Work
+        </a>
+
+        <!-- Case Study Header -->
+        <header class="case-study-header narrow-container">
+            <h1 class="display-title">Empath.ly</h1>
+            <p class="title-3" style="color: #888; max-width: 720px;">A video conferencing platform with integrated emotional analytics, helping HR and marketing teams track emotional dynamics during remote meetings.</p>
+        </header>
+
+        <!-- Meta Information -->
+        <div class="meta-info narrow-container">
+            <div class="meta-item">
+                <div class="meta-label">Role</div>
+                <div class="meta-value">UX Designer & Researcher</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Team</div>
+                <div class="meta-value">2 Developers, 1 Business Analyst</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Duration</div>
+                <div class="meta-value">36 Hours</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Awards</div>
+                <div class="meta-value">1st Place Overall, Best Life Hack</div>
+            </div>
+        </div>
+
+        <!-- Hero Image -->
+        <!--<div class="hero-image">
+            <img src="images/empathly/1.webp" alt="Empath.ly platform overview showing the main interface" loading="eager">
+        </div>-->
+
+        <!-- Overview Section -->
+        <section class="section narrow-container" aria-labelledby="overview-heading">
+            <h2 id="overview-heading" class="section-label">Overview</h2>
+            <p class="body-text" style="max-width: 720px;">Empath.ly is an innovative video conferencing platform with integrated emotional analytics and real-time emotion identification. During video calls, our system analyzes participants' emotions sixty times per second through their camera feed. After each call, users can access a comprehensive dashboard displaying emotional data and actionable insights, including predominant emotions throughout the meeting, emotional patterns over time, and notable shifts or contrasts in participants' emotional states.</p>
+        </section>
+
+        <!-- Context Section -->
+        <section class="section narrow-container" aria-labelledby="context-heading">
+            <h2 id="context-heading" class="section-label narrow-container">Context</h2>
+            <div class="highlight-box">
+                <h3 class="headline">Remote work has created an emotional disconnect in how we communicate through screens.</h3>
+                <p class="body-text" style="max-width: 720px; margin: 0 auto;">COVID-19 changed how we communicate and work by making remote interactions normal. However, this shift created a major emotional gap - humans weren't designed to connect emotionally through screens.</p>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section class="section narrow-container" aria-labelledby="research-heading">
+            <h2 id="research-heading" class="section-label">Research Process</h2>
+            <p class="body-text" style="margin-bottom: 60px;">Our research process involved three key approaches to understand both the problem and potential solution space:</p>
+            
+            <div class="two-column">
+                <div>
+                    <h3 class="title-2">Desk Research</h3>
+                    <p class="body-text">Our business analyst and I investigated why people prefer remote jobs and why certain video platforms succeed while others fail. This helped us identify opportunities for our solution.</p>
+                </div>
+                <div>
+                    <h3 class="title-2">User Interviews</h3>
+                    <p class="body-text">I spoke with regular users of Google Meet and Zoom to understand their experiences. These conversations during the hackathon gave us valuable insights into user expectations and pain points.</p>
+                </div>
+            </div>
+            
+            <h3 class="title-2" style="margin-top: 80px; margin-bottom: 40px;">Key Insights</h3>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-number">INSIGHT #1</div>
+                    <p class="body-text">Users preferred Zoom's richer feature set but Google Meet's simpler flow. They appreciated how Google Meet let them quickly join and use the platform without cluttered interfaces.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">INSIGHT #2</div>
+                    <p class="body-text">Through interviews with professionals across various roles, we identified our primary target audience: HR professionals and marketing teams who showed the strongest need for emotional analytics.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">INSIGHT #3</div>
+                    <p class="body-text">Our breakthrough came when we pinpointed the core problem: hiring managers and marketing teams struggle to read emotional cues during video conferences, creating a significant emotional disconnect.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Statement -->
+        <section class="section narrow-container" aria-labelledby="problem-heading">
+            <h2 id="problem-heading" class="section-label narrow-container">Problem Statement</h2>
+            <div class="highlight-box">
+                <p class="headline" style="max-width: 800px; margin: 0 auto;">"How might we help marketing and HR professionals better understand and respond to the emotional dynamics of their virtual meetings?"</p>
+            </div>
+        </section>
+
+        <!-- Design Process Section -->
+        <section class="section narrow-container" aria-labelledby="design-heading">
+            <h2 id="design-heading" class="section-label">Design Process</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3 class="title-1">Designing for Usability</h3>
+                    <p class="body-text">My first priority was creating a user-friendly landing page. Our research showed that users struggle to accomplish simple tasks on platforms like Zoom because of cluttered interfaces. I designed our landing page with clear pathways to start or join meetings without distractions.</p>
+                </div>
+                <div>
+                    <div class="image-container">
+                        <img src="images/empathly/2.webp" alt="Clean landing page design with prominent call-to-action buttons" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column reverse">
+                <div>
+                    <h3 class="title-1">Leveraging Familiar Patterns</h3>
+                    <p class="body-text">Since users are already accustomed to platforms like Google Meet and Zoom, I recognized the importance of working with these established mental models. I designed our video calling interface with familiar elements inspired by Google Meet to reduce the learning curve.</p>
+                </div>
+                <div>
+                    <div class="image-container">
+                        <img src="images/empathly/3.webp" alt="Video conferencing interface showing familiar design patterns" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization Challenge -->
+        <section class="section narrow-container" aria-labelledby="challenge-heading">
+            <h2 id="challenge-heading" class="section-label">The Data Visualization Challenge</h2>
+            <div class="image-container" style="margin-bottom: 40px;">
+                <img src="images/empathly/4.webp" alt="Whiteboard session showing various data visualization concepts and sketches" loading="lazy">
+            </div>
+            <p class="body-text" style="max-width: 720px;">The most significant design challenge was presenting emotional data in a meaningful and accessible way. We needed visualizations that anyone could understand at a glance, regardless of their data literacy. My team and I collaborated to explore various data representation methods.</p>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="section narrow-container" aria-labelledby="solution-heading">
+            <h2 id="solution-heading" class="section-label">The Solution</h2>
+            
+            <div class="two-column">
+                <div>
+                    <div class="image-container">
+                        <img src="images/empathly/5.webp" alt="Quick overview dashboard showing pie chart of emotions" loading="lazy">
+                    </div>
+                </div>
+                <div>
+                    <h3 class="title-1">Respecting Time Constraints</h3>
+                    <p class="body-text">Many users have back-to-back meetings and don't always have time to view detailed breakdowns. I designed a pie chart dashboard that pops up once the meeting ends, helping users quickly understand the emotions felt throughout the meeting before hopping to their next call.</p>
+                </div>
+            </div>
+
+            <div class="two-column reverse">
+                <div>
+                    <div class="image-container">
+                        <img src="images/empathly/6.webp" alt="Comprehensive analytics dashboard with timeline graph and transcription highlights" loading="lazy">
+                    </div>
+                </div>
+                <div>
+                    <h3 class="title-1">Comprehensive Analytics</h3>
+                    <p class="body-text">The dashboard was designed for maximum scannability. It includes the quick overview pie chart, a timeline graph showing emotional flow throughout the meeting, and highlighted transcription excerpts where specific emotions spiked. These three different presentation methods meet various user needs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="section narrow-container" aria-labelledby="results-heading">
+            <h2 id="results-heading" class="section-label">Results & Impact</h2>
+            <div class="two-column">
+                <div>
+                    <h3 class="title-2">Project Recognition</h3>
+                    <p class="body-text">Our project earned significant recognition, winning first place overall and the "Best Life Hack" award at HackHarvard. Additionally, Empath.ly was selected as one of the top 80 startups among more than 1,500 competitors in India.</p>
+                </div>
+                <div>
+                    <h3 class="title-2">Personal Growth</h3>
+                    <p class="body-text">This intensive hackathon experience greatly advanced my skills as a UX designer. I gained valuable expertise in data visualization techniques and deepened my understanding of how different user contexts impact design decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Work Section -->
+        <section class="section narrow-container" aria-labelledby="future-heading">
+            <h2 id="future-heading" class="section-label">Future Development</h2>
+            <div class="highlight-box">
+                <h3 class="headline">Moving from Standalone to Integration</h3>
+                <p class="body-text" style="max-width: 720px; margin: 0 auto;">Our key insight for future development is that creating a standalone application isn't optimal. Users already have established workflows with platforms like Zoom and Google Meet. Our next step is to develop Empath.ly as a plugin for existing platforms, delivering emotional analytics within the tools users already rely on daily.</p>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="section narrow-container" aria-labelledby="video-heading">
+            <h2 id="video-heading" class="section-label">Project Presentation</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/Ln9x96JU-2A?si=8dZySXB7S9Ant1g5" 
+                    title="Empath.ly Project Presentation Video"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Manish. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loadingScreen = document.querySelector('.loading-screen');
+                loadingScreen.classList.add('hide');
+                loadingScreen.setAttribute('aria-hidden', 'true');
+            }, 500);
+        });
+
+        // Scroll-based navigation background
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    
+                    // Add animation delay for insight cards
+                    if (entry.target.classList.contains('insight-card')) {
+                        const siblings = entry.target.parentElement.children;
+                        const index = Array.from(siblings).indexOf(entry.target);
+                        entry.target.style.animationDelay = `${index * 0.1}s`;
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.section, .highlight-box, .two-column, .image-container, .insight-card, .video-container, .hero-content, .hero-image');
+            animatedElements.forEach(element => observer.observe(element));
+        });
+
+        // Add smooth page transition from landing page
+        if (document.referrer.includes('index.html')) {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(20px)';
+            document.body.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+                document.body.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Handle reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        
+        function handleReducedMotionChanged() {
+            if (prefersReducedMotion.matches) {
+                document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+            } else {
+                document.documentElement.style.setProperty('--animation-duration', '0.8s');
+            }
+        }
+
+        prefersReducedMotion.addEventListener('change', handleReducedMotionChanged);
+        handleReducedMotionChanged();
+    </script>
+</body>
+</html>
